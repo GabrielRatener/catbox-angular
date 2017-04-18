@@ -6,9 +6,9 @@
 Execute index.js to begin.
 
 ```
-$ node index					# listen to `localhost` on port 80 (http)
-$ node index my.host.name  		# specify hostname
-$ node index my.host.name http	# specify hostname and protocol
+$ node index                    # listen to `localhost` on port 80 (http)
+$ node index my.host.name       # specify hostname
+$ node index my.host.name http  # specify hostname and protocol
 ```
 
 Note: Port is set automatically based on protocol unless set as an environment variable.
