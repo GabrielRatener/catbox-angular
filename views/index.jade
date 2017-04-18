@@ -5,7 +5,8 @@ html#app(lang='en', ng-app='chatApp')
 		meta(http-equiv='X-UA-Compatible', content='IE=edge')
 		meta(name='viewport', content='width=device-width, initial-scale=1')
 
-		title #{organization} - #{topic}
+		title(ng-controller="NotificationsController")
+			{{unread | showUnread}}#{organization} - #{topic}
 
 		link(rel='stylesheet', href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css')
 		link(rel='stylesheet', href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css')
@@ -16,21 +17,21 @@ html#app(lang='en', ng-app='chatApp')
 		script(src='../js/bundle.out.js')
 
 
-	body.container(ng-controller="ChatController")
-		nav.navbar.navbar-inverse.navbar-fixed-top
+	body.container
+		nav.navbar.navbar-inverse.navbar-fixed-top(ng-controller="ProfileController")
 			div.title
 				.navbar-header
 					span.navbar-brand
-						span #{organization} - hi, 
-						input(ng-model='members[index].name', ng-change='update("name")')
+						span #{organization} - Hi, 
+						input(ng-model='name', ng-change='updateName()')
 			div.color
 				span.navbar-brand
 					span #
 					input(
-						ng-model='members[index].color',
-						ng-change='update("color")',
-						style='color: {{members[index].color | color}}')
-		#content.container
+						ng-model='color',
+						ng-change='updateColor()',
+						style='color: {{color | hexColor}}')
+		#content.container(ng-controller='ChatController')
 			.members
 				table.table.table-inverse
 					thead
@@ -43,7 +44,7 @@ html#app(lang='en', ng-app='chatApp')
 							th Online
 					tr(ng-repeat='member in members', ng-class=`{'active': $index === index}`)
 						td {{$index + 1}}
-						td.initials(style='color: {{member.color | color}}')
+						td.initials(style='color: {{member.color | hexColor}}')
 							{{member.name | initials | uppercase}}
 						td {{member.name | cap}}
 						td
@@ -57,7 +58,7 @@ html#app(lang='en', ng-app='chatApp')
 					li.media(ng-repeat="message in thread")
 						.media-left
 							div(title='{{message.sender | getName: members | cap}}')
-								span.initials(style='color: {{members[message.sender].color | color}}')
+								span.initials(style='color: {{members[message.sender].color | hexColor}}')
 									{{message.sender | getName: members | initials}}
 						.media-body
 							span.message-body(ng-bind-html='message.body | ntobr')
@@ -67,7 +68,7 @@ html#app(lang='en', ng-app='chatApp')
 					li.media(id='message-input', ng-if='typing > -1')
 						.media-left
 							div(title='{{typing | getName: members | cap}}')
-								span.initials(style='color: {{members[typing].color | color}}')
+								span.initials(style='color: {{members[typing].color | hexColor}}')
 									{{typing | getName: members | initials}}
 						.media-body
 							img(src='../../images/typing.gif')
@@ -75,13 +76,13 @@ html#app(lang='en', ng-app='chatApp')
 						hr
 						.media-left
 							div(title='{{index | getName: members | cap}}')
-								span.initials(style='color: {{members[index].color | color}}')
+								span.initials(style='color: {{members[index].color | hexColor}}')
 									{{index | getName: members | initials}}
 						.media-body
 							textarea#compose(
 								ng-model='text'
 								ng-keyup='$event.keyCode == 13 && sendMessage()',
-								ng-change='showTyping',
+								ng-change='showTyping()',
 								placeholder='Write message here...'
 								)
 
