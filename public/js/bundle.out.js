@@ -4,7 +4,7 @@
 // all valid hex symbols for color validation
 const hexSet = new Set('0123456789abcdefABCDEF');
 
-var addFilters = function(app) {
+function addFilters(app) {
 	app.filter('signify', () => ((value, name) => {
 		if (value === name) {
 			return `me (${name}):`;
@@ -104,7 +104,7 @@ var addFilters = function(app) {
 	// show unread messages in parens (for page title)
 	app.filter('showUnread', () => ((value) =>
 		(value > 0) ? `(${value}) ` : ''));
-};
+}
 
 const name = "NotificationsController";
 
@@ -188,6 +188,9 @@ function init$2({app, socket}) {
 			const trimmed = $scope.text.trim();
 			socket.emit('message', trimmed);					
 			$scope.text = '';
+
+			e.preventDefault();
+			e.stopPropagation();
 		};
 		
 		

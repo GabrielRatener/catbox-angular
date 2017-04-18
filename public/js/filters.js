@@ -2,7 +2,7 @@
 // all valid hex symbols for color validation
 const hexSet = new Set('0123456789abcdefABCDEF');
 
-export default function(app) {
+export default function addFilters(app) {
 	app.filter('signify', () => ((value, name) => {
 		if (value === name) {
 			return `me (${name}):`;

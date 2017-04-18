@@ -1,5 +1,6 @@
 
-import addFilters from "./add-filters"
+import addDirectives from "./directives"
+import addFilters from "./filters"
 import notificationsCtrl from "./notifications-ctrl"
 import profileCtrl from "./profile-ctrl"
 import chatCtrl from "./chat-ctrl"
@@ -14,6 +15,7 @@ const socket = io(url);
 
 const params = {app, socket};
 
+addDirectives(app);
 addFilters(app);
 
 notificationsCtrl(params);

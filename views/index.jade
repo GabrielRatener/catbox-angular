@@ -81,7 +81,7 @@ html#app(lang='en', ng-app='chatApp')
 						.media-body
 							textarea#compose(
 								ng-model='text'
-								ng-keyup='$event.keyCode == 13 && sendMessage()',
+								ng-keydown='$event.keyCode == 13 && sendMessage($event)',
 								ng-change='showTyping()',
 								placeholder='Write message here...'
 								)

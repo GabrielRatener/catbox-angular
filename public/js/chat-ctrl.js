@@ -20,6 +20,9 @@ export default function init({app, socket}) {
 			const trimmed = $scope.text.trim()
 			socket.emit('message', trimmed);					
 			$scope.text = '';
+
+			e.preventDefault();
+			e.stopPropagation();
 		}
 		
 		
