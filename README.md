@@ -34,3 +34,5 @@ Delete previous chat using ID
 >> chat.delete("224c81a6-2c3c-4541-a72a-52dd4701784d")
 Deleted chat "224c81a6-2c3c-4541-a72a-52dd4701784d"
 ```
+
+To access the chat, each of the four members gets his/her own super-secret URL (generated above).
